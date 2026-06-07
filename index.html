@@ -6,7 +6,7 @@
   <title>Skuld — Secure control plane for AI agents</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #070d12;
@@ -23,7 +23,7 @@
       --green: #72d98d;
       --orange: #e99c3f;
       --red: #ef6b6b;
-      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
       --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
@@ -251,6 +251,8 @@
       white-space: pre;
       tab-size: 2;
       font-variant-ligatures: none;
+      font-kerning: none;
+      letter-spacing: 0;
       text-shadow: none;
       display: block;
     }
@@ -269,7 +271,7 @@
     }
 
     .full-tui-pre {
-      min-width: 126ch;
+      min-width: 121ch;
       font-size: 11px;
       line-height: 1.10;
     }
@@ -571,9 +573,9 @@
             <pre class="term-pre hero-preview-pre">┌─ SKULD CONTROL PREVIEW ──────────────────────────────────┐
 │ PROFILE security-research     MODE guided     AUDIT on   │
 ├─ POLICY ─────────────────────────────────────────────────┤
-│ high-risk actions require approval                 GATED │
-│ MCP tool interface enforced by control layer       READY │
-│ typed state: findings · decisions · artifacts      SYNC  │
+│ high-risk actions require approval                  GATED│
+│ MCP tool interface enforced by control layer        READY│
+│ typed state: findings · decisions · artifacts        SYNC│
 ├─ NEXT ───────────────────────────────────────────────────┤
 │ > approve gated action                                   │
 └──────────────────────────────────────────────────────────┘</pre>
@@ -675,35 +677,35 @@
 │                                                                                         │  Phase       endgame        │
 │ ┌─ CHALLENGES ───────────┬─ FOCUSED CHALLENGE ──────────┬─ URGENT / NEXT ─────┐         │  Score       8420           │
 │ │ public.challenge_rows  │ public.focused_challenge_…   │ CRIT submit held    │         │  Rank        #17            │
-│ │ Name          Pts St % │ detail                       │ WARN pwn lane stale │         │  Time Left   05:42:11      │
+│ │ Name          Pts St % │ detail                       │ WARN pwn lane stale │         │  Time Left   05:42:11       │
 │ │ > svc/auth   425 A 71  │ svc/auth-edge · web · 425    │                     │         │                             │
 │ │   heapghost  500 S 44  │ owner: ctf-solver-07         ├─ STRATEGIST ────────┤         │ CAPACITY                    │
 │ │   oracle     350 G 62  │ sandbox: web-app/vm-lane-2   │ focus auth-edge     │         │  Queued      6              │
 │ │   poly-img   275 Q 18  │ hypothesis: token confusion  │ pause heap-ghost    │         │  Writeups    3 ready        │
 │ │                        ├─ Last meaningful event ──────┼─ HEALTH ────────────┤         │                             │
 │ │ ┌─ Mini stats ───────┐ │ candidate flag extracted     │ bridge healthy      │         │ URGENT                      │
-│ │ │ solves 14/31      │ │ verifier confidence 0.82     │ queue medium        │         │  Focus       svc/auth-edge  │
-│ │ │ active 5          │ │ approval required            │ vm-lane-2 healthy   │         │  Last Event  approval req   │
-│ │ │ avg ROI 1.84      │ ├─ Branches ───────────────────┴─────────────────────┤         │                             │
-│ │ └────────────────────┘ │ public.branch_rows                                  │         │ HEALTH                      │
-│ │                        │ > b7 parser-confusion 71% BEST                      │         │  Bridge      healthy        │
-│ │                        │   b3 jwt-kid          48% HELD                      │         │  Queue       medium         │
-│ │                        │   b9 cache-poison     35% STALLED                   │         │                             │
+│ │ │ solves 14/31      │ │ verifier confidence 0.82     │ queue medium        │          │  Focus       svc/auth-edge  │
+│ │ │ active 5          │ │ approval required            │ vm-lane-2 healthy   │          │  Last Event  approval req   │
+│ │ │ avg ROI 1.84      │ ├─ Branches ───────────────────┴─────────────────────┤          │                             │
+│ │ └────────────────────┘ │ public.branch_rows                                  │        │ HEALTH                      │
+│ │                        │ > b7 parser-confusion 71% BEST                      │        │  Bridge      healthy        │
+│ │                        │   b3 jwt-kid          48% HELD                      │        │  Queue       medium         │
+│ │                        │   b9 cache-poison     35% STALLED                   │        │                             │
 │ ├─ ACTIVE AGENTS ────────┼─ LIVE OUTPUT ────────────────┬─ SUBMISSIONS ───────┤         │                             │
-│ │ * ctf-coordinator      │ agent_output.                 │ public.submission_  │         │                             │
-│ │   ctf-broker           │ ctf-solver-07: token found    │ rows                │         │                             │
-│ │   ctf-strategist       │ verifier-02: confidence .82   │ svc/auth  HELD      │         │                             │
-│ │   ctf-solver-07        │ broker: queue pressure medium ├─ CONTAINERS ────────┤         │                             │
-│ │   verifier-02          │ Ctrl+L: Chat / Log            │ public.container_   │         │                             │
-│ │                        │                               │ rows                │         │                             │
-│ │                        │                               │ web-app     OK      │         │                             │
-│ │                        │                               │ pwn-glibc   DEG     │         │                             │
-│ └────────────────────────┴───────────────────────────────┴─────────────────────┘         │                             │
+│ │ * ctf-coordinator      │ agent_output.                 │ public.submission_  │        │                             │
+│ │   ctf-broker           │ ctf-solver-07: token found    │ rows                │        │                             │
+│ │   ctf-strategist       │ verifier-02: confidence .82   │ svc/auth  HELD      │        │                             │
+│ │   ctf-solver-07        │ broker: queue pressure medium ├─ CONTAINERS ────────┤        │                             │
+│ │   verifier-02          │ Ctrl+L: Chat / Log            │ public.container_   │        │                             │
+│ │                        │                               │ rows                │        │                             │
+│ │                        │                               │ web-app     OK      │        │                             │
+│ │                        │                               │ pwn-glibc   DEG     │        │                             │
+│ └────────────────────────┴───────────────────────────────┴─────────────────────┘        │                             │
 │                                                                                         │                             │
 ├─ INPUT ─────────────────────────────────────────────────────────────────────────────────┤                             │
 │ > _                                                                                     │                             │
 ├─ KEYS ──────────────────────────────────────────────────────────────────────────────────┤                             │
-│ Enter inspect   p pin   f freeze   e evidence   g graph   m detections   / command     │                             │
+│ Enter inspect   p pin   f freeze   e evidence   g graph   m detections   / command      │                             │
 └─────────────────────────────────────────────────────────────────────────────────────────┴─────────────────────────────┘</pre>
       </div>
       <p class="term-caption">Closer to the actual CTF TUI layout: 120 × 40 frame, 9 tabs, persistent state rail, embedded header, input footer, and adaptive key hints.</p>
