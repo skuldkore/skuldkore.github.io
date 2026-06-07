@@ -6,7 +6,7 @@
   <title>Skuld — Secure control plane for AI agents</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
   <style>
     :root {
       --bg: #070d12;
@@ -174,6 +174,11 @@
       min-width: 0;
     }
 
+    .hero-terminal {
+      container-type: inline-size;
+      width: 100%;
+    }
+
     .hero h1,
     .hero p,
     .hero .note {
@@ -239,14 +244,16 @@
       direction: ltr;
       scroll-behavior: auto;
       display: block;
+      container-type: inline-size;
     }
 
     .term-pre {
       margin: 0;
       width: max-content;
+      min-width: 100%;
       font-family: var(--mono);
       font-size: 12px;
-      line-height: 1.12;
+      line-height: 1;
       color: #d9e2ec;
       white-space: pre;
       tab-size: 2;
@@ -264,19 +271,17 @@
       max-width: 100%;
       overflow-x: auto;
       overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
     }
 
     .hero-preview-pre {
-      min-width: 62ch;
-      max-width: 62ch;
-      font-size: 11px;
+      font-size: min(11px, calc((100cqw - 20px) / 60));
       line-height: 1.08;
     }
 
     .full-tui-pre {
-      min-width: 121ch;
-      font-size: 11px;
-      line-height: 1.10;
+      font-size: min(11px, calc((100cqw - 20px) / 121));
+      line-height: 1.1;
     }
 
     .term-caption {
@@ -571,14 +576,14 @@
           </div>
           <p class="note">Private repository is not public. Walkthroughs use architecture views, TUI screens, and demo clips only.</p>
         </div>
-        <div>
+        <div class="hero-terminal">
           <div class="term-shell hero-preview-shell">
             <pre class="term-pre hero-preview-pre">┌─ SKULD CONTROL PREVIEW ──────────────────────────────────┐
 │ PROFILE security-research     MODE guided     AUDIT on   │
 ├─ POLICY ─────────────────────────────────────────────────┤
-│ high-risk actions require approval                  GATED│
-│ MCP tool interface enforced by control layer        READY│
-│ typed state: findings · decisions · artifacts        SYNC│
+│ high-risk actions require approval                 GATED │
+│ MCP tool interface enforced by control layer       READY │
+│ typed state: findings . decisions . artifacts       SYNC │
 ├─ NEXT ───────────────────────────────────────────────────┤
 │ > approve gated action                                   │
 └──────────────────────────────────────────────────────────┘</pre>
@@ -674,14 +679,14 @@
       <h2>Actual terminal geometry, not a web dashboard.</h2>
       <p class="lead">The product surface is a fixed terminal frame: 9 tabs, persistent state rail, embedded header, input footer, object-first panes, bindings, and adaptive key hints.</p>
       <div class="term-shell">
-        <pre class="term-pre full-tui-pre">┌─ TAB 1/9 — [Overview] Challenges · Detail · Agents · Cntrs · Intel · WUps · Subs · Plan ┬─ STATE RAIL ────────────────┐
+        <pre class="term-pre full-tui-pre">┌─ TAB 1/9 - [Overview] Challenges . Detail . Agents . Cntrs . Intel . WUps . Subs . Plan ┬─ STATE RAIL ────────────────┐
 │ SKULD CTF  HackTheBox Cyber Apocalypse  Team: red-asgard  Score 8420  Rank #17          │ COMPETITION                 │
 │            Time 05:42:11  Phase endgame                                                 │  Profile     ctf            │
 │                                                                                         │  Phase       endgame        │
 │ ┌─ CHALLENGES ───────────┬─ FOCUSED CHALLENGE ──────────┬─ URGENT / NEXT ─────┐         │  Score       8420           │
-│ │ public.challenge_rows  │ public.focused_challenge_…   │ CRIT submit held    │         │  Rank        #17            │
+│ │ public.challenge_rows  │ public.focused_challenge_..  │ CRIT submit held    │         │  Rank        #17            │
 │ │ Name          Pts St % │ detail                       │ WARN pwn lane stale │         │  Time Left   05:42:11       │
-│ │ > svc/auth   425 A 71  │ svc/auth-edge · web · 425    │                     │         │                             │
+│ │ > svc/auth   425 A 71  │ svc/auth-edge . web . 425    │                     │         │                             │
 │ │   heapghost  500 S 44  │ owner: ctf-solver-07         ├─ STRATEGIST ────────┤         │ CAPACITY                    │
 │ │   oracle     350 G 62  │ sandbox: web-app/vm-lane-2   │ focus auth-edge     │         │  Queued      6              │
 │ │   poly-img   275 Q 18  │ hypothesis: token confusion  │ pause heap-ghost    │         │  Writeups    3 ready        │
