@@ -252,7 +252,10 @@
       tab-size: 2;
       font-variant-ligatures: none;
       font-kerning: none;
+      font-feature-settings: "liga" 0, "calt" 0;
       letter-spacing: 0;
+      word-spacing: 0;
+      text-rendering: geometricPrecision;
       text-shadow: none;
       display: block;
     }
@@ -684,23 +687,23 @@
 │ │   poly-img   275 Q 18  │ hypothesis: token confusion  │ pause heap-ghost    │         │  Writeups    3 ready        │
 │ │                        ├─ Last meaningful event ──────┼─ HEALTH ────────────┤         │                             │
 │ │ ┌─ Mini stats ───────┐ │ candidate flag extracted     │ bridge healthy      │         │ URGENT                      │
-│ │ │ solves 14/31      │ │ verifier confidence 0.82     │ queue medium        │          │  Focus       svc/auth-edge  │
-│ │ │ active 5          │ │ approval required            │ vm-lane-2 healthy   │          │  Last Event  approval req   │
-│ │ │ avg ROI 1.84      │ ├─ Branches ───────────────────┴─────────────────────┤          │                             │
-│ │ └────────────────────┘ │ public.branch_rows                                  │        │ HEALTH                      │
-│ │                        │ > b7 parser-confusion 71% BEST                      │        │  Bridge      healthy        │
-│ │                        │   b3 jwt-kid          48% HELD                      │        │  Queue       medium         │
-│ │                        │   b9 cache-poison     35% STALLED                   │        │                             │
+│ │ │ solves 14/31      │ │ verifier confidence 0.82     │ queue medium         │         │  Focus       svc/auth-edge  │
+│ │ │ active 5          │ │ approval required            │ vm-lane-2 healthy    │         │  Last Event  approval req   │
+│ │ │ avg ROI 1.84      │ ├─ Branches ───────────────────┴──────────────────────┤         │                             │
+│ │ └────────────────────┘ │ public.branch_rows                                 │         │ HEALTH                      │
+│ │                        │ > b7 parser-confusion 71% BEST                     │         │  Bridge      healthy        │
+│ │                        │   b3 jwt-kid          48% HELD                     │         │  Queue       medium         │
+│ │                        │   b9 cache-poison     35% STALLED                  │         │                             │
 │ ├─ ACTIVE AGENTS ────────┼─ LIVE OUTPUT ────────────────┬─ SUBMISSIONS ───────┤         │                             │
-│ │ * ctf-coordinator      │ agent_output.                 │ public.submission_  │        │                             │
-│ │   ctf-broker           │ ctf-solver-07: token found    │ rows                │        │                             │
-│ │   ctf-strategist       │ verifier-02: confidence .82   │ svc/auth  HELD      │        │                             │
-│ │   ctf-solver-07        │ broker: queue pressure medium ├─ CONTAINERS ────────┤        │                             │
-│ │   verifier-02          │ Ctrl+L: Chat / Log            │ public.container_   │        │                             │
-│ │                        │                               │ rows                │        │                             │
-│ │                        │                               │ web-app     OK      │        │                             │
-│ │                        │                               │ pwn-glibc   DEG     │        │                             │
-│ └────────────────────────┴───────────────────────────────┴─────────────────────┘        │                             │
+│ │ * ctf-coordinator      │ agent_output.                 │ public.submission_ │         │                             │
+│ │   ctf-broker           │ ctf-solver-07: token found    │ rows               │         │                             │
+│ │   ctf-strategist       │ verifier-02: confidence .82   │ svc/auth  HELD     │         │                             │
+│ │   ctf-solver-07        │ broker: queue pressure medium ├─ CONTAINERS ───────┤         │                             │
+│ │   verifier-02          │ Ctrl+L: Chat / Log            │ public.container_  │         │                             │
+│ │                        │                               │ rows               │         │                             │
+│ │                        │                               │ web-app     OK     │         │                             │
+│ │                        │                               │ pwn-glibc   DEG    │         │                             │
+│ └────────────────────────┴───────────────────────────────┴────────────────────┘         │                             │
 │                                                                                         │                             │
 ├─ INPUT ─────────────────────────────────────────────────────────────────────────────────┤                             │
 │ > _                                                                                     │                             │
