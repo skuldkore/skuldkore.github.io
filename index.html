@@ -175,8 +175,11 @@
     }
 
     .hero-terminal {
-      container-type: inline-size;
       width: 100%;
+      min-width: 0;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
     }
 
     .hero h1,
@@ -268,15 +271,48 @@
     }
 
     .hero-preview-shell {
-      max-width: 100%;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
+      width: max-content;
+      min-width: 60ch;
+      max-width: none;
+      overflow: visible;
+      padding: 10px;
+      flex-shrink: 0;
     }
 
-    .hero-preview-pre {
+    .hero-tui {
+      width: 60ch;
+      box-sizing: content-box;
+      border: 1px solid var(--line-strong);
+      margin: 0;
+      font-family: var(--mono);
       font-size: 11px;
       line-height: 1.08;
+      color: #d9e2ec;
+      font-variant-ligatures: none;
+      font-kerning: none;
+      font-feature-settings: "liga" 0, "calt" 0;
+      letter-spacing: 0;
+      text-rendering: geometricPrecision;
+      flex-shrink: 0;
+    }
+
+    .hero-tui-line {
+      display: flex;
+      width: 60ch;
+      height: 1.08em;
+      overflow: hidden;
+    }
+
+    .hero-tui-gutter {
+      flex: 0 0 1ch;
+      width: 1ch;
+    }
+
+    .hero-tui-text {
+      flex: 0 0 58ch;
+      width: 58ch;
+      white-space: pre;
+      overflow: hidden;
     }
 
     .full-tui-pre {
@@ -578,15 +614,17 @@
         </div>
         <div class="hero-terminal">
           <div class="term-shell hero-preview-shell">
-            <pre class="term-pre hero-preview-pre">┌─ SKULD CONTROL PREVIEW ──────────────────────────────────│
-│ PROFILE security-research     MODE guided     AUDIT on   │
-├─ POLICY ─────────────────────────────────────────────────│
-│ high-risk actions require approval             GATED     │
-│ MCP tool interface enforced by control layer   READY     │
-│ typed state: findings . decisions . artifacts  SYNC      │
-├─ NEXT ───────────────────────────────────────────────────│
-│ > approve gated action                                   │
-└──────────────────────────────────────────────────────────│</pre>
+            <div class="hero-tui" role="img" aria-label="Skuld control preview terminal">
+              <div class="hero-tui-line"><span class="hero-tui-gutter">┌</span><span class="hero-tui-text">─ SKULD CONTROL PREVIEW ──────────────────────────────────</span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> PROFILE security-research     MODE guided     AUDIT on   </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">├</span><span class="hero-tui-text">─ POLICY ─────────────────────────────────────────────────</span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> high-risk actions require approval             GATED     </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> MCP tool interface enforced by control layer   READY     </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> typed state: findings . decisions . artifacts  SYNC      </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">├</span><span class="hero-tui-text">─ NEXT ───────────────────────────────────────────────────</span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> &gt; approve gated action                                   </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">└</span><span class="hero-tui-text">──────────────────────────────────────────────────────────</span></div>
+            </div>
           </div>
           <p class="term-caption">Web preview inspired by the Skuld operations console.</p>
         </div>
