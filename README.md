@@ -6,7 +6,7 @@ Hosted on [GitHub Pages](https://pages.github.com/).
 
 ## Live site
 
-**https://skuldkore.github.io/website-/**
+**https://skuldkore.github.io/**
 
 ## Local preview
 
@@ -26,7 +26,7 @@ Pushes to `main` trigger the [Deploy GitHub Pages](.github/workflows/deploy-page
 
 The deploy workflow will fail until GitHub Pages is enabled once for this repository.
 
-1. Open [Settings → Pages](https://github.com/skuldkore/website-/settings/pages).
+1. Open [Settings → Pages](https://github.com/skuldkore/skuldkore.github.io/settings/pages).
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 3. Re-run the failed **Deploy GitHub Pages** workflow from the Actions tab.
 4. Open the live URL above once the run succeeds.
