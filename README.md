@@ -26,6 +26,13 @@ Pushes to `main` trigger the [Deploy GitHub Pages](.github/workflows/deploy-page
 
 The deploy workflow will fail until GitHub Pages is enabled once for this repository.
 
+**This repository is currently private.** On GitHub Free, Pages only works with public repositories. If Settings → Pages says *"Upgrade or make this repository public to enable Pages"*, choose one of these options first:
+
+1. **Make the repository public** (free) — recommended for a marketing landing page
+2. **Upgrade your GitHub plan** — required if you want Pages on a private repository
+
+Then complete setup:
+
 1. Open [Settings → Pages](https://github.com/skuldkore/skuldkore.github.io/settings/pages).
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
 3. Re-run the failed **Deploy GitHub Pages** workflow from the Actions tab.
