@@ -272,15 +272,17 @@
 
     .hero-preview-shell {
       width: max-content;
+      min-width: 60ch;
       max-width: none;
       overflow: visible;
       padding: 10px;
+      flex-shrink: 0;
     }
 
     .hero-tui {
-      border-collapse: collapse;
-      table-layout: fixed;
       width: 60ch;
+      box-sizing: content-box;
+      border: 1px solid var(--line-strong);
       margin: 0;
       font-family: var(--mono);
       font-size: 11px;
@@ -291,23 +293,26 @@
       font-feature-settings: "liga" 0, "calt" 0;
       letter-spacing: 0;
       text-rendering: geometricPrecision;
+      flex-shrink: 0;
     }
 
-    .hero-tui td {
-      padding: 0;
-      margin: 0;
-      vertical-align: top;
-      white-space: pre;
+    .hero-tui-line {
+      display: flex;
+      width: 60ch;
+      height: 1.08em;
       overflow: hidden;
     }
 
-    .hero-tui .tl,
-    .hero-tui .tr {
+    .hero-tui-gutter {
+      flex: 0 0 1ch;
       width: 1ch;
     }
 
-    .hero-tui .tc {
+    .hero-tui-text {
+      flex: 0 0 58ch;
       width: 58ch;
+      white-space: pre;
+      overflow: hidden;
     }
 
     .full-tui-pre {
@@ -609,17 +614,17 @@
         </div>
         <div class="hero-terminal">
           <div class="term-shell hero-preview-shell">
-            <table class="hero-tui" role="img" aria-label="Skuld control preview terminal">
-              <tr><td class="tl">┌</td><td class="tc">─ SKULD CONTROL PREVIEW ──────────────────────────────────</td><td class="tr">┐</td></tr>
-              <tr><td class="tl">│</td><td class="tc"> PROFILE security-research     MODE guided     AUDIT on   </td><td class="tr">│</td></tr>
-              <tr><td class="tl">├</td><td class="tc">─ POLICY ─────────────────────────────────────────────────</td><td class="tr">┤</td></tr>
-              <tr><td class="tl">│</td><td class="tc"> high-risk actions require approval             GATED     </td><td class="tr">│</td></tr>
-              <tr><td class="tl">│</td><td class="tc"> MCP tool interface enforced by control layer   READY     </td><td class="tr">│</td></tr>
-              <tr><td class="tl">│</td><td class="tc"> typed state: findings . decisions . artifacts  SYNC      </td><td class="tr">│</td></tr>
-              <tr><td class="tl">├</td><td class="tc">─ NEXT ───────────────────────────────────────────────────</td><td class="tr">┤</td></tr>
-              <tr><td class="tl">│</td><td class="tc"> &gt; approve gated action                                   </td><td class="tr">│</td></tr>
-              <tr><td class="tl">└</td><td class="tc">──────────────────────────────────────────────────────────</td><td class="tr">┘</td></tr>
-            </table>
+            <div class="hero-tui" role="img" aria-label="Skuld control preview terminal">
+              <div class="hero-tui-line"><span class="hero-tui-gutter">┌</span><span class="hero-tui-text">─ SKULD CONTROL PREVIEW ──────────────────────────────────</span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> PROFILE security-research     MODE guided     AUDIT on   </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">├</span><span class="hero-tui-text">─ POLICY ─────────────────────────────────────────────────</span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> high-risk actions require approval             GATED     </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> MCP tool interface enforced by control layer   READY     </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> typed state: findings . decisions . artifacts  SYNC      </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">├</span><span class="hero-tui-text">─ NEXT ───────────────────────────────────────────────────</span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">│</span><span class="hero-tui-text"> &gt; approve gated action                                   </span></div>
+              <div class="hero-tui-line"><span class="hero-tui-gutter">└</span><span class="hero-tui-text">──────────────────────────────────────────────────────────</span></div>
+            </div>
           </div>
           <p class="term-caption">Web preview inspired by the Skuld operations console.</p>
         </div>
