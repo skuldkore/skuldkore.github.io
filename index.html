@@ -324,55 +324,17 @@
 
     .full-tui-shell {
       width: max-content;
-      min-width: 121ch;
+      min-width: 120ch;
       max-width: none;
       overflow: visible;
       flex-shrink: 0;
     }
 
-    .full-tui {
-      width: 120ch;
-      box-sizing: content-box;
-      border: 1px solid var(--line-strong);
-      margin: 0;
-      font-family: var(--mono);
+    .full-tui-pre {
       font-size: 11px;
       line-height: 1.1;
-      color: #d9e2ec;
-      font-variant-ligatures: none;
-      font-kerning: none;
-      font-feature-settings: "liga" 0, "calt" 0;
-      letter-spacing: 0;
-      text-rendering: geometricPrecision;
-      flex-shrink: 0;
-    }
-
-    .full-tui-line {
-      display: flex;
-      width: 120ch;
-      height: 1.1em;
-      overflow: hidden;
-    }
-
-    .full-tui-main {
-      flex: 0 0 90ch;
-      width: 90ch;
-      white-space: pre;
-      overflow: hidden;
-    }
-
-    .full-tui-rail {
-      flex: 0 0 29ch;
-      width: 29ch;
-      white-space: pre;
-      overflow: hidden;
-      border-left: 1px solid var(--line-strong);
-    }
-
-    .full-tui-rail-head {
-      flex: 0 0 30ch;
-      width: 30ch;
-      border-left: none;
+      width: max-content;
+      min-width: 120ch;
     }
 
     .term-caption {
@@ -773,44 +735,46 @@
       <p class="lead">The product surface is a fixed terminal frame: 9 tabs, persistent state rail, embedded header, input footer, object-first panes, bindings, and adaptive key hints.</p>
       <div class="full-tui-terminal">
         <div class="term-shell full-tui-shell">
-            <div class="full-tui" role="img" aria-label="Skuld CTF operations console preview">
-              <div class="full-tui-line full-tui-line-head"><span class="full-tui-main">┌─ TAB 1/9 - [Overview] Challenges . Detail . Agents . Cntrs . Intel . WUps . Subs . Plan </span><span class="full-tui-rail full-tui-rail-head">┬─ STATE RAIL ────────────────</span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ SKULD CTF  HackTheBox Cyber Apocalypse  Team: red-asgard  Score 8420  Rank #17          </span><span class="full-tui-rail"> COMPETITION                 </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│            Time 05:42:11  Phase endgame                                                 </span><span class="full-tui-rail">  Profile     ctf            </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│                                                                                         </span><span class="full-tui-rail">  Phase       endgame        </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ ┌─ CHALLENGES ───────────┬─ FOCUSED CHALLENGE ──────────┬─ URGENT / NEXT ─────┐         </span><span class="full-tui-rail">  Score       8420           </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ public.challenge_rows  │ public.focused_challenge_..  │ CRIT submit held    │         </span><span class="full-tui-rail">  Rank        #17            </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ Name          Pts St % │ detail                       │ WARN pwn lane stale │         </span><span class="full-tui-rail">  Time Left   05:42:11       </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ &gt; svc/auth   425 A 71  │ svc/auth-edge . web . 425    │                     │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   heapghost  500 S 44  │ owner: ctf-solver-07         ├─ STRATEGIST ────────┤         </span><span class="full-tui-rail"> CAPACITY                    </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   oracle     350 G 62  │ sandbox: web-app/vm-lane-2   │ focus auth-edge     │         </span><span class="full-tui-rail">  Queued      6              </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   poly-img   275 Q 18  │ hypothesis: token confusion  │ pause heap-ghost    │         </span><span class="full-tui-rail">  Writeups    3 ready        </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        ├─ Last meaningful event ──────┼─ HEALTH ────────────┤         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ ┌─ Mini stats ───────┐ │ candidate flag extracted     │ bridge healthy      │         </span><span class="full-tui-rail"> URGENT                      </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ │ solves 14/31      │ │ verifier confidence 0.82     │ queue medium         │         </span><span class="full-tui-rail">  Focus       svc/auth-edge  </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ │ active 5          │ │ approval required            │ vm-lane-2 healthy    │         </span><span class="full-tui-rail">  Last Event  approval req   </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ │ avg ROI 1.84      │ ├─ Branches ───────────────────┴──────────────────────┤         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ └────────────────────┘ │ public.branch_rows                                 │         </span><span class="full-tui-rail"> HEALTH                      </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        │ &gt; b7 parser-confusion 71% BEST                     │         </span><span class="full-tui-rail">  Bridge      healthy        </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        │   b3 jwt-kid          48% HELD                     │         </span><span class="full-tui-rail">  Queue       medium         </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        │   b9 cache-poison     35% STALLED                  │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ ├─ ACTIVE AGENTS ────────┼─ LIVE OUTPUT ────────────────┬─ SUBMISSIONS ───────┤         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │ * ctf-coordinator      │ agent_output.                 │ public.submission_ │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   ctf-broker           │ ctf-solver-07: token found    │ rows               │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   ctf-strategist       │ verifier-02: confidence .82   │ svc/auth  HELD     │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   ctf-solver-07        │ broker: queue pressure medium ├─ CONTAINERS ───────┤         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │   verifier-02          │ Ctrl+L: Chat / Log            │ public.container_  │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        │                               │ rows               │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        │                               │ web-app     OK     │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ │                        │                               │ pwn-glibc   DEG    │         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ └────────────────────────┴───────────────────────────────┴────────────────────┘         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│                                                                                         </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">├─ INPUT ────────────────────────────────────────────────────────────────────────────────┤</span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ &gt; _                                                                                     </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">├─ KEYS ─────────────────────────────────────────────────────────────────────────────────┤</span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">│ Enter inspect   p pin   f freeze   e evidence   g graph   m detections   / command      </span><span class="full-tui-rail">                             </span></div>
-              <div class="full-tui-line"><span class="full-tui-main">└────────────────────────────────────────────────────────────────────────────────────────┴</span><span class="full-tui-rail">─────────────────────────────</span></div>
-            </div>
+          <pre class="term-pre full-tui-pre">┌─ TAB 1/9 — [Overview] Challenges · Detail · Agents · Cntrs · Intel · WUps · Subs · Plan┬─ STATE RAIL ────────────────┐
+│ SKULD CTF  HackTheBox Cyber Apocalypse  Team: red-asgard  Score 8420  Rank #17         │                             │
+│            Time 05:42:11  Phase endgame                                                │ COMPETITION                 │
+│                                                                                        │  Profile     ctf            │
+│ ┌─ CHALLENGES ───────────┬─ FOCUSED CHALLENGE ──────────┬─ URGENT / NEXT ────┐         │  Phase       endgame        │
+│ │ public.challenge_rows  │ public.focused_challenge_…   │ (alerts CRIT/URG)  │         │  Score       8420           │
+│ │  Name  Pts  Status  %  │ detail                       │                    │         │  Rank        #17            │
+│ │  filter: web|pwn|…     ├─ Last meaningful event ──────┼─ STRATEGIST ───────┤         │  Time Left   05:42:11       │
+│ │  sort: ROI|solves|pts  │ public.last_major_event      │ public.strategist… │         │                             │
+│ │                        ├─ Branches ───────────────────┼─ HEALTH ───────────┤         │ CAPACITY                    │
+│ │ ┌─ Mini stats ───────┐ │ public.branch_rows           │ public.system_…    │         │  Queued      6              │
+│ │ │ public.challenge_… │ │  Branch  Strategy  %  Status │ health             │         │  Writeups    3 ready        │
+│ │ │ summary            │ │                              │                    │         │                             │
+│ │ └────────────────────┘ │                              │                    │         │ URGENT                      │
+│ ├─ ACTIVE AGENTS ────────┼─ LIVE OUTPUT ────────────────┼─ SUBMISSIONS ──────┤         │  Focus       svc/auth-edge  │
+│ │ * ctf-coordinator      │ agent_output stream          │ public.submission_ │         │  Last Event  approval req   │
+│ │   ctf-broker           │  Ctrl+L: Chat / Log          │ rows               │         │                             │
+│ │   ctf-strategist       │                              ├─ CONTAINERS ───────┤         │ HEALTH                      │
+│ │   …                    │                              │ public.container_  │         │  Bridge      healthy        │
+│ │                        │                              │ rows               │         │  Queue       medium         │
+│ └────────────────────────┴──────────────────────────────┴────────────────────┘         │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+│                                                                                        │                             │
+├─ INPUT ────────────────────────────────────────────────────────────────────────────────┤                             │
+│ > _                                                                                    │                             │
+│                                                                                        │                             │
+└────────────────────────────────────────────────────────────────────────────────────────┴─────────────────────────────┘</pre>
         </div>
       </div>
       <p class="term-caption">Closer to the actual CTF TUI layout: 120 × 40 frame, 9 tabs, persistent state rail, embedded header, input footer, and adaptive key hints.</p>
