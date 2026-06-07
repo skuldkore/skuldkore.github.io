@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skuld — Secure control plane for AI agents</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #070d12;
+      --bg-2: #09131a;
+      --panel: #0a131b;
+      --panel-2: #0d1923;
+      --text: #e7edf4;
+      --muted: #98a6b5;
+      --dim: #657487;
+      --line: #2a3b4c;
+      --line-strong: #3b5367;
+      --cyan: #38d9ee;
+      --yellow: #e4c34b;
+      --green: #72d98d;
+      --orange: #e99c3f;
+      --red: #ef6b6b;
+      --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    /* Nav */
+    .nav {
+      border-bottom: 1px solid var(--line);
+      background: var(--bg-2);
+      padding: 14px 0;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: var(--mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .logo span {
+      color: var(--cyan);
+    }
+
+    .links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      font-size: 14px;
+    }
+
+    .links a {
+      color: var(--muted);
+    }
+
+    .links a:hover {
+      color: var(--text);
+    }
+
+    /* Sections */
+    section {
+      padding: 64px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    section:last-of-type {
+      border-bottom: none;
+    }
+
+    h1 {
+      font-size: clamp(38px, 5vw, 66px);
+      line-height: 0.98;
+      letter-spacing: -0.05em;
+      margin: 0 0 20px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(26px, 3.5vw, 38px);
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      margin: 0 0 16px;
+      font-weight: 600;
+    }
+
+    h3 {
+      font-size: 15px;
+      font-weight: 600;
+      margin: 0 0 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .lead {
+      font-size: 17px;
+      line-height: 1.6;
+      color: var(--muted);
+      margin: 0 0 24px;
+      max-width: 62ch;
+    }
+
+    .note {
+      font-size: 13px;
+      color: var(--dim);
+      margin-top: 16px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      border: 1px solid var(--line-strong);
+      background: var(--panel);
+      padding: 4px 10px;
+      margin-bottom: 20px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 72px 0 64px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+      gap: 38px;
+      align-items: center;
+    }
+
+    .hero-grid > * {
+      min-width: 0;
+    }
+
+    .hero h1,
+    .hero p,
+    .hero .note {
+      overflow-wrap: anywhere;
+    }
+
+    h1,
+    .lead,
+    .note {
+      overflow-wrap: anywhere;
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 14px;
+      font-weight: 500;
+      padding: 10px 18px;
+      border: 1px solid var(--line-strong);
+      border-radius: 0;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .btn-primary {
+      background: var(--panel-2);
+      color: var(--text);
+      border-color: var(--cyan);
+    }
+
+    .btn-primary:hover {
+      background: var(--panel);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .btn-secondary:hover {
+      color: var(--text);
+      border-color: var(--line-strong);
+      text-decoration: none;
+    }
+
+    /* Terminal blocks */
+    .term-shell {
+      border: 1px solid var(--line);
+      background: #04090e;
+      padding: 10px;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      direction: ltr;
+      scroll-behavior: auto;
+      display: block;
+    }
+
+    .term-pre {
+      margin: 0;
+      width: max-content;
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.12;
+      color: #d9e2ec;
+      white-space: pre;
+      tab-size: 2;
+      font-variant-ligatures: none;
+      font-kerning: none;
+      letter-spacing: 0;
+      text-shadow: none;
+      display: block;
+    }
+
+    .hero-preview-shell {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    .hero-preview-pre {
+      min-width: 62ch;
+      max-width: 62ch;
+      font-size: 11px;
+      line-height: 1.08;
+    }
+
+    .full-tui-pre {
+      min-width: 121ch;
+      font-size: 11px;
+      line-height: 1.10;
+    }
+
+    .term-caption {
+      font-size: 12px;
+      color: var(--dim);
+      margin-top: 10px;
+      font-family: var(--mono);
+    }
+
+    .card,
+    .btn,
+    .term-shell {
+      border-radius: 0;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 18px;
+    }
+
+    .card p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Features list */
+    .features {
+      display: grid;
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .feature {
+      border-left: 2px solid var(--line-strong);
+      padding-left: 16px;
+    }
+
+    .feature h3 {
+      color: var(--text);
+    }
+
+    .feature p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* Profile section */
+    .profile {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+      margin-top: 28px;
+    }
+
+    .callout {
+      border: 1px solid var(--line-strong);
+      background: var(--panel-2);
+      padding: 16px 18px;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--text);
+      margin-bottom: 20px;
+    }
+
+    .tree-pre {
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.45;
+      color: #d9e2ec;
+      background: #04090e;
+      border: 1px solid var(--line);
+      padding: 14px;
+      margin: 0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* Preview cards */
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .preview-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 14px;
+    }
+
+    .preview-card .tab-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      margin-bottom: 10px;
+    }
+
+    .preview-card .preview-mono {
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.4;
+      color: var(--muted);
+      white-space: pre-wrap;
+    }
+
+    .preview-card .preview-stats {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--dim);
+      margin-top: 8px;
+    }
+
+    /* Architecture */
+    .arch {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    .arch-step {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 14px;
+    }
+
+    .arch-step .step-num {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--cyan);
+      margin-bottom: 8px;
+    }
+
+    .arch-step h3 {
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+
+    .arch-step p {
+      margin: 0;
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .invariant {
+      margin-top: 28px;
+      border: 1px solid var(--cyan);
+      background: var(--panel-2);
+      padding: 16px 20px;
+      font-family: var(--mono);
+      font-size: 14px;
+      color: var(--text);
+      text-align: center;
+      letter-spacing: -0.01em;
+    }
+
+    /* Demo */
+    .demo {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .demo-card {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 16px;
+    }
+
+    .demo-placeholder {
+      height: 140px;
+      background: #04090e;
+      border: 1px solid var(--line);
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--dim);
+    }
+
+    .demo-card p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* Final CTA */
+    .final {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+
+    /* Footer */
+    .footer {
+      border-top: 1px solid var(--line);
+      padding: 32px 0;
+      background: var(--bg-2);
+    }
+
+    .footer p {
+      margin: 0;
+      font-size: 13px;
+      color: var(--dim);
+      line-height: 1.6;
+    }
+
+    /* Mobile */
+    @media (max-width: 980px) {
+      .hero-grid,
+      .profile,
+      .final {
+        grid-template-columns: 1fr;
+      }
+
+      .cards,
+      .preview-grid,
+      .arch,
+      .demo {
+        grid-template-columns: 1fr;
+      }
+
+      .links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: clamp(38px, 12vw, 54px);
+      }
+
+      .btn {
+        width: 100%;
+        text-align: center;
+      }
+
+      .cta-row {
+        flex-direction: column;
+      }
+
+      section {
+        padding: 48px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="wrap nav-inner">
+      <div class="logo"><span>skuld</span> control plane</div>
+      <div class="links">
+        <a href="#control-plane">Control plane</a>
+        <a href="#operations-console">Operations console</a>
+        <a href="#architecture">Architecture</a>
+        <a href="#demo-clips">Demos</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 1. Hero -->
+  <section class="hero" id="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">Design-partner pilots now open</div>
+          <h1>Secure control plane for AI coding/security agents.</h1>
+          <p class="lead">Skuld governs agent swarms that read, write, execute, retry, and delegate work. It adds policy, approval, typed state, profile-packaged operations consoles, auditability, and replay to autonomous coding and security workflows.</p>
+          <div class="cta-row">
+            <a href="#" class="btn btn-primary cta-walkthrough">Request a technical walkthrough</a>
+            <a href="#architecture" class="btn btn-secondary">View architecture</a>
+          </div>
+          <p class="note">Private repository is not public. Walkthroughs use architecture views, TUI screens, and demo clips only.</p>
+        </div>
+        <div>
+          <div class="term-shell hero-preview-shell">
+            <pre class="term-pre hero-preview-pre">┌─ SKULD CONTROL PREVIEW ──────────────────────────────────┐
+│ PROFILE security-research     MODE guided     AUDIT on   │
+├─ POLICY ─────────────────────────────────────────────────┤
+│ high-risk actions require approval                  GATED│
+│ MCP tool interface enforced by control layer        READY│
+│ typed state: findings · decisions · artifacts        SYNC│
+├─ NEXT ───────────────────────────────────────────────────┤
+│ > approve gated action                                   │
+└──────────────────────────────────────────────────────────┘</pre>
+          </div>
+          <p class="term-caption">Web preview inspired by the Skuld operations console.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Problem -->
+  <section id="problem">
+    <div class="wrap">
+      <h2>Agents can act faster than teams can control.</h2>
+      <p class="lead">AI agents are becoming operational actors. They can inspect private repositories, write patches, run commands, create artifacts, spawn subtasks, and continue across long-running sessions. Without a control plane, autonomy turns into drift.</p>
+      <div class="cards">
+        <div class="card">
+          <h3>Unclear authority</h3>
+          <p>Who approved the action? Which identity requested it? Which policy allowed it? Most agent stacks cannot answer cleanly.</p>
+        </div>
+        <div class="card">
+          <h3>Weak audit trail</h3>
+          <p>Chat logs are not execution records. Teams need structured state, decisions, artifacts, approvals, and replayable action history.</p>
+        </div>
+        <div class="card">
+          <h3>Unsafe side effects</h3>
+          <p>Reads, writes, tool calls, network access, retries, and spawned agents need policy gates before they hit real code or infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Control Plane -->
+  <section id="control-plane">
+    <div class="wrap">
+      <h2>Governed swarm execution for real agent work.</h2>
+      <p class="lead">Skuld separates behavior from execution. Agents and profiles propose actions. The supervisor validates, schedules, gates, records, and executes them through controlled paths.</p>
+      <div class="features">
+        <div class="feature">
+          <h3>Governed swarm execution</h3>
+          <p>Coordinate multiple agents while keeping side effects behind supervisor policy, sandboxing, capability boundaries, and approval gates.</p>
+        </div>
+        <div class="feature">
+          <h3>Typed state</h3>
+          <p>Represent findings, decisions, checkpoints, tasks, artifacts, attempts, events, and approvals as structured operational state.</p>
+        </div>
+        <div class="feature">
+          <h3>Operator approval</h3>
+          <p>Require approval for code mutation, command execution, external access, agent spawning, or high-impact workflow changes.</p>
+        </div>
+        <div class="feature">
+          <h3>MCP integration</h3>
+          <p>Expose ergonomic agent and tool interfaces without making MCP the trust boundary. Enforcement remains inside the control layer.</p>
+        </div>
+        <div class="feature">
+          <h3>Audit log and replay</h3>
+          <p>Track what happened, why it happened, what policy allowed it, and how the system can recover or replay after failure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Profile-Packaged Operations -->
+  <section id="profiles">
+    <div class="wrap">
+      <h2>Profiles package the mission, not just the prompt.</h2>
+      <div class="callout">A Skuld profile is not a prompt preset. It packages behavior, UI, commands, agent roles, workers, schemas, and runtime feeds into a mission-specific operating mode.</div>
+      <div class="profile">
+        <div>
+          <p class="lead" style="margin-top:0">A profile defines what agents exist, what commands the operator can issue, what state is written, what workers feed the runtime, and what the TUI shows. The profile is the operating mode for the swarm.</p>
+          <p class="note">Manifest v2 exposes a <code style="font-family:var(--mono);color:var(--cyan)">ui</code> field where <code style="font-family:var(--mono);color:var(--cyan)">layout</code> points to a layout YAML file.</p>
+        </div>
+        <div>
+          <pre class="tree-pre">ctf-profile/
+|-- manifest.yaml
+|   |-- commands[]
+|   |-- sandboxes[]
+|   |-- workers[]
+|   |-- tick_prefetch[]
+|   `-- tick_ipc_drain[]
+|-- ui/layout.yaml
+|-- prompts/
+|-- agents/
+`-- schemas/state.schema.json</pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Operations Console -->
+  <section id="operations-console">
+    <div class="wrap">
+      <h2>Actual terminal geometry, not a web dashboard.</h2>
+      <p class="lead">The product surface is a fixed terminal frame: 9 tabs, persistent state rail, embedded header, input footer, object-first panes, bindings, and adaptive key hints.</p>
+      <div class="term-shell">
+        <pre class="term-pre full-tui-pre">┌─ TAB 1/9 — [Overview] Challenges · Detail · Agents · Cntrs · Intel · WUps · Subs · Plan ┬─ STATE RAIL ────────────────┐
+│ SKULD CTF  HackTheBox Cyber Apocalypse  Team: red-asgard  Score 8420  Rank #17          │ COMPETITION                 │
+│            Time 05:42:11  Phase endgame                                                 │  Profile     ctf            │
+│                                                                                         │  Phase       endgame        │
+│ ┌─ CHALLENGES ───────────┬─ FOCUSED CHALLENGE ──────────┬─ URGENT / NEXT ─────┐         │  Score       8420           │
+│ │ public.challenge_rows  │ public.focused_challenge_…   │ CRIT submit held    │         │  Rank        #17            │
+│ │ Name          Pts St % │ detail                       │ WARN pwn lane stale │         │  Time Left   05:42:11       │
+│ │ > svc/auth   425 A 71  │ svc/auth-edge · web · 425    │                     │         │                             │
+│ │   heapghost  500 S 44  │ owner: ctf-solver-07         ├─ STRATEGIST ────────┤         │ CAPACITY                    │
+│ │   oracle     350 G 62  │ sandbox: web-app/vm-lane-2   │ focus auth-edge     │         │  Queued      6              │
+│ │   poly-img   275 Q 18  │ hypothesis: token confusion  │ pause heap-ghost    │         │  Writeups    3 ready        │
+│ │                        ├─ Last meaningful event ──────┼─ HEALTH ────────────┤         │                             │
+│ │ ┌─ Mini stats ───────┐ │ candidate flag extracted     │ bridge healthy      │         │ URGENT                      │
+│ │ │ solves 14/31      │ │ verifier confidence 0.82     │ queue medium        │          │  Focus       svc/auth-edge  │
+│ │ │ active 5          │ │ approval required            │ vm-lane-2 healthy   │          │  Last Event  approval req   │
+│ │ │ avg ROI 1.84      │ ├─ Branches ───────────────────┴─────────────────────┤          │                             │
+│ │ └────────────────────┘ │ public.branch_rows                                  │        │ HEALTH                      │
+│ │                        │ > b7 parser-confusion 71% BEST                      │        │  Bridge      healthy        │
+│ │                        │   b3 jwt-kid          48% HELD                      │        │  Queue       medium         │
+│ │                        │   b9 cache-poison     35% STALLED                   │        │                             │
+│ ├─ ACTIVE AGENTS ────────┼─ LIVE OUTPUT ────────────────┬─ SUBMISSIONS ───────┤         │                             │
+│ │ * ctf-coordinator      │ agent_output.                 │ public.submission_  │        │                             │
+│ │   ctf-broker           │ ctf-solver-07: token found    │ rows                │        │                             │
+│ │   ctf-strategist       │ verifier-02: confidence .82   │ svc/auth  HELD      │        │                             │
+│ │   ctf-solver-07        │ broker: queue pressure medium ├─ CONTAINERS ────────┤        │                             │
+│ │   verifier-02          │ Ctrl+L: Chat / Log            │ public.container_   │        │                             │
+│ │                        │                               │ rows                │        │                             │
+│ │                        │                               │ web-app     OK      │        │                             │
+│ │                        │                               │ pwn-glibc   DEG     │        │                             │
+│ └────────────────────────┴───────────────────────────────┴─────────────────────┘        │                             │
+│                                                                                         │                             │
+├─ INPUT ─────────────────────────────────────────────────────────────────────────────────┤                             │
+│ > _                                                                                     │                             │
+├─ KEYS ──────────────────────────────────────────────────────────────────────────────────┤                             │
+│ Enter inspect   p pin   f freeze   e evidence   g graph   m detections   / command      │                             │
+└─────────────────────────────────────────────────────────────────────────────────────────┴─────────────────────────────┘</pre>
+      </div>
+      <p class="term-caption">Closer to the actual CTF TUI layout: 120 × 40 frame, 9 tabs, persistent state rail, embedded header, input footer, and adaptive key hints.</p>
+
+      <div class="preview-grid">
+        <div class="preview-card">
+          <div class="tab-label">Tab 2/9 · Challenges</div>
+          <div class="preview-mono">public.challenge_rows
+
+Challenge | Category | Pts | Status | Prog% | Owner | Branches | Sandbox | Flag</div>
+          <div class="preview-stats">solves 14/31 · active 5 · avg ROI 1.84</div>
+        </div>
+        <div class="preview-card">
+          <div class="tab-label">Tab 3/9 · Detail</div>
+          <div class="preview-mono">Description / Files | Branches | Flag Pipeline
+Active Agents       | Artifacts | Last Events
+
+public.focused_challenge_description
+public.branch_rows</div>
+        </div>
+        <div class="preview-card">
+          <div class="tab-label">Tab 4/9 · Agents</div>
+          <div class="preview-mono">public.agent_rows
+
+Name | Role | Challenge | Branch | Idle | Model | Sandbox
+
+selected-agent output preview</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Architecture -->
+  <section id="architecture">
+    <div class="wrap">
+      <h2>A control plane, not another agent wrapper.</h2>
+      <p class="lead">Skuld keeps the kernel domain-agnostic. Profiles define behavior and UI. The supervisor enforces policy. The runtime executes through observable, replayable action paths.</p>
+      <div class="arch">
+        <div class="arch-step">
+          <div class="step-num">01</div>
+          <h3>User / CLI / TUI</h3>
+          <p>Operator commands, approvals, views, and status.</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">02</div>
+          <h3>Profile package</h3>
+          <p>Behavior hooks, prompts, commands, workers, schemas, strategy, and "ui/layout.yaml".</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">03</div>
+          <h3>Supervisor</h3>
+          <p>Policy, approval, sandbox validation, scheduling, and action enforcement.</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">04</div>
+          <h3>Swarm runtime</h3>
+          <p>Agents, workers, IPC, outputs, artifacts, and task execution.</p>
+        </div>
+        <div class="arch-step">
+          <div class="step-num">05</div>
+          <h3>Audit / replay</h3>
+          <p>Execution ledger, typed events, recovery, and traceability.</p>
+        </div>
+      </div>
+      <div class="invariant">Profiles propose actions. The supervisor executes. Side effects do not bypass policy.</div>
+    </div>
+  </section>
+
+  <!-- 7. Who It Is For -->
+  <section id="audience">
+    <div class="wrap">
+      <h2>Built for teams where agent mistakes matter.</h2>
+      <div class="cards">
+        <div class="card">
+          <h3>AppSec</h3>
+          <p>Govern agents performing code review, vulnerability triage, exploit reproduction, remediation, and secure refactoring.</p>
+        </div>
+        <div class="card">
+          <h3>AI security</h3>
+          <p>Evaluate tool use, autonomy, memory, delegation, approval boundaries, and unsafe drift.</p>
+        </div>
+        <div class="card">
+          <h3>Platform engineering</h3>
+          <p>Run internal coding agents with policy, scheduling, approval gates, profile-specific workflows, and operational visibility.</p>
+        </div>
+        <div class="card">
+          <h3>Red teams</h3>
+          <p>Coordinate multi-agent research, CTF-style workflows, investigation tasks, artifacts, and controlled execution.</p>
+        </div>
+        <div class="card">
+          <h3>Security researchers</h3>
+          <p>Run long-running investigations through object-first consoles for targets, evidence, graph pivots, detections, writeups, and swarm ops.</p>
+        </div>
+        <div class="card">
+          <h3>Agent platform builders</h3>
+          <p>Add governance, audit, TUI visibility, and replay around internal agent systems without treating chat logs as infrastructure.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Demo Clips -->
+  <section id="demo-clips">
+    <div class="wrap">
+      <h2>Show the system without exposing the repo.</h2>
+      <p class="lead">Replace these placeholders with short clips of profile loading, TUI operation, approval flow, audit trail, and replay.</p>
+      <div class="demo">
+        <div class="demo-card">
+          <h3>Profile-packaged TUI</h3>
+          <p>Load a profile with its own tabs, rails, commands, workers, and "ui/layout.yaml".</p>
+          <div class="demo-placeholder">[ clip placeholder ]</div>
+        </div>
+        <div class="demo-card">
+          <h3>Typed state and live bindings</h3>
+          <p>Watch state, artifacts, tasks, attempts, and output update through bindings.</p>
+          <div class="demo-placeholder">[ clip placeholder ]</div>
+        </div>
+        <div class="demo-card">
+          <h3>Approval gate</h3>
+          <p>Block a high-risk agent action until the operator explicitly approves it.</p>
+          <div class="demo-placeholder">[ clip placeholder ]</div>
+        </div>
+        <div class="demo-card">
+          <h3>Audit and replay</h3>
+          <p>Inspect typed state, action history, execution ledger, and recovery trail.</p>
+          <div class="demo-placeholder">[ clip placeholder ]</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Final CTA -->
+  <section id="final-cta">
+    <div class="wrap">
+      <div class="final">
+        <div>
+          <h2>Design-partner pilots.</h2>
+          <p class="lead" style="margin-bottom:0">We are working with teams that already use, evaluate, or plan to deploy AI coding and security agents. The goal is to pressure-test governance, profile-packaged operations consoles, approval, audit, and replay against real workflows.</p>
+        </div>
+        <div>
+          <a href="#" class="btn btn-primary cta-walkthrough">Request a technical walkthrough</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Footer -->
+  <footer class="footer">
+    <div class="wrap">
+      <p>© 2026 Skuld. Secure control plane for AI agents.<br>Private repo not public. Architecture, TUI screens, and demos available by walkthrough.</p>
+    </div>
+  </footer>
+
+  <script>
+    const WALKTHROUGH_MAILTO =
+      "mailto:hello@example.com?subject=Skuld technical walkthrough";
+
+    document.querySelectorAll(".cta-walkthrough").forEach(function (el) {
+      el.href = WALKTHROUGH_MAILTO;
+    });
+  </script>
+</body>
+</html>
