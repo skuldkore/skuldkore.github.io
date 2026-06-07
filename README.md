@@ -22,11 +22,18 @@ Then visit http://localhost:8000.
 
 Pushes to `main` trigger the [Deploy GitHub Pages](.github/workflows/deploy-pages.yml) workflow, which publishes the site automatically.
 
-### First-time GitHub setup
+### First-time GitHub setup (required)
 
-1. In the repository on GitHub, open **Settings → Pages**.
+The deploy workflow will fail until GitHub Pages is enabled once for this repository.
+
+1. Open [Settings → Pages](https://github.com/skuldkore/website-/settings/pages).
 2. Under **Build and deployment**, set **Source** to **GitHub Actions**.
-3. Wait for the workflow run to finish, then open the live URL above.
+3. Re-run the failed **Deploy GitHub Pages** workflow from the Actions tab.
+4. Open the live URL above once the run succeeds.
+
+#### Optional automatic enablement
+
+To let the workflow enable Pages for you, create a repository secret named `PAGES_ENABLEMENT_TOKEN` containing a Personal Access Token with `repo` scope or Pages write permission.
 
 ## Project structure
 
