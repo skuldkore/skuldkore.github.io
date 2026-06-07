@@ -275,12 +275,12 @@
     }
 
     .hero-preview-pre {
-      font-size: min(11px, calc((100cqw - 20px) / 60));
+      font-size: 11px;
       line-height: 1.08;
     }
 
     .full-tui-pre {
-      font-size: min(11px, calc((100cqw - 20px) / 121));
+      font-size: 11px;
       line-height: 1.1;
     }
 
@@ -583,7 +583,7 @@
 ├─ POLICY ─────────────────────────────────────────────────┤
 │ high-risk actions require approval                 GATED │
 │ MCP tool interface enforced by control layer       READY │
-│ typed state: findings . decisions . artifacts       SYNC │
+│ typed state: findings . decisions . artifacts      SYNC  │
 ├─ NEXT ───────────────────────────────────────────────────┤
 │ > approve gated action                                   │
 └──────────────────────────────────────────────────────────┘</pre>
@@ -710,9 +710,9 @@
 │ │                        │                               │ pwn-glibc   DEG    │         │                             │
 │ └────────────────────────┴───────────────────────────────┴────────────────────┘         │                             │
 │                                                                                         │                             │
-├─ INPUT ─────────────────────────────────────────────────────────────────────────────────┤                             │
+├─ INPUT ────────────────────────────────────────────────────────────────────────────────┤│                             │
 │ > _                                                                                     │                             │
-├─ KEYS ──────────────────────────────────────────────────────────────────────────────────┤                             │
+├─ KEYS ─────────────────────────────────────────────────────────────────────────────────┤│                             │
 │ Enter inspect   p pin   f freeze   e evidence   g graph   m detections   / command      │                             │
 └─────────────────────────────────────────────────────────────────────────────────────────┴─────────────────────────────┘</pre>
       </div>
