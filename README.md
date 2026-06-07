@@ -31,10 +31,6 @@ The deploy workflow will fail until GitHub Pages is enabled once for this reposi
 3. Re-run the failed **Deploy GitHub Pages** workflow from the Actions tab.
 4. Open the live URL above once the run succeeds.
 
-#### Optional automatic enablement
-
-To let the workflow enable Pages for you, create a repository secret named `PAGES_ENABLEMENT_TOKEN` containing a Personal Access Token with `repo` scope or Pages write permission.
-
 ## Project structure
 
 ```text
